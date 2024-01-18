@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './header';
+import SocialLinks from './SocialLinks';
+import About from './About';
+import Projects from './Projects';
+import Contact from './contact';
+import Footer from './Footer';
+import Menu from './Menu';
+import Nav from './Nav';
 
 class App extends Component {
     state = { loading: false };
+
+    constructor(props) {
+        super(props);
+        this.state = { isMenuOpen: false };
+        this.toggleMenu = this.toggleMenu.bind(this);
+    }
+
+    toggleMenu() {
+        this.setState({ isMenuOpen: !this.state.isMenuOpen });
+    }
+
 
     componentDidMount() {
         // 测试 devServer 的代理功能
@@ -14,15 +32,17 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h2>Welcome to React</h2>
-                </div>
-                <p>{ this.state.loading.toString() }</p>
-                <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+            <div className="body">
+
+                <Nav toggleMenu={this.toggleMenu} isMenuOpen={this.state.isMenuOpen} />
+                <Menu isMenuOpen={this.state.isMenuOpen} toggleMenu={this.toggleMenu} />
+
+                <Header />
+                <About />
+                <Projects />
+                <Contact />
+                <Footer />
+                <SocialLinks />
             </div>
         );
     }
