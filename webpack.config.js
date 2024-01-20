@@ -119,6 +119,14 @@ module.exports = function (env) {
                     query: {
                         name: 'static/media/[name].[hash:8].[ext]'
                     }
+                },
+                {
+                    test: /\.(png|jpg|gif)$/i,
+                    use: [
+                      {
+                        loader: 'file-loader',
+                      },
+                    ],
                 }
             ]
         },

@@ -1,0 +1,274 @@
+:root {
+  --main-bg-color: #f0f0f0;
+}
+
+#projects {
+    min-height: 100vh;
+    font-size: 1.4rem;
+    position: relative;
+    background: #f0f0f0;
+    background: linear-gradient(215deg, #f0f0f0 0%,#fafafa 100%);
+    margin-top: -10rem;
+    z-index: 1;
+  }
+  
+  #projects a,
+  #projects a:visited {
+    color: #19046e;
+  }
+  
+  #projects a:hover,
+  #projects a:active {
+    color: #252934;
+  }
+  
+  /* Container */
+  #projects .projects-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 12rem 5rem 8rem;
+  }
+  
+  /* Heading */
+  #projects .heading .title {
+    text-align: center;
+    font-size: 2.4rem;
+    line-height: 2.4rem;
+  }
+
+  #projects .heading .separator {
+    background: #19046e;
+    width: 150px;
+    height: 2px;
+    margin: 1rem auto;
+  } 
+  
+  #projects .heading .subtitle {
+    font-size: 1.4rem;
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+    /* text-align: justify; */
+  }
+
+  /* All Projects */
+
+  #projects .Gproject {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Single Project */
+  /* #projects .project {
+    margin: 1rem auto;
+    width: 70%;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 2rem;
+  } */
+  #projects .project {
+    margin: 1rem auto;
+    width: 70%;
+    /* padding: 2rem; */
+    /* display: grid; */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 2rem;
+}
+  /* Project Image */
+  #projects .project .project-link {
+    display: block;
+    margin: auto 0;
+    color: #252934;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 0%;
+    border: 1px solid #fafafa;
+    box-shadow: 0 20px 10px -10px #25293450;
+    transition: 300ms;
+  }
+  
+  #projects .project .project-link:hover {
+    box-shadow: 0 50px 15px -30px #25293450;
+  }
+  
+  #projects .project .project-link:hover > img {
+    filter: saturate(1);
+    transform: scale(1.05);
+  }
+  
+  #projects .project .project-image {
+    width: 10%;
+    transform: scale(1.2);
+    filter: saturate(0);
+    transition: all 300ms;
+  }
+  
+  /* Project Details */
+  #projects .project .project-details {
+    margin: auto 0;
+  }
+  
+  #projects .project-details .project-tile {
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0;
+    color: #19046e;
+  }
+  
+  /* Icons */
+  #projects .project-details .icons {
+    margin: 0;
+    color: #252934;
+  }
+  
+  #projects .project-details .icons i {
+    margin-right: .4rem;
+    font-weight: normal;
+    font-size: 1.4rem;
+  }
+  
+  /* Text */
+  #projects .project-details small {
+    font-style: italic;
+  }
+  
+  #projects .project-details p {
+    margin: 1rem 0;
+  }
+  
+  /* Buttons */
+  #projects .project-details .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  #projects .project-details .buttons a {
+    width: 49%;
+    padding: .5rem;
+    border: none;
+    border-bottom: 1px solid #19046e;
+    color: #252934;
+    background: #fafafa;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  #projects .project-details .buttons a:hover {
+    background: #19046e;
+    color: #fafafa;
+  }
+  #projects .project-details .buttons i {
+    font-size: .8rem;
+    vertical-align: middle;
+    margin-left: .5rem;;
+  }
+  
+
+  .project-list {
+    list-style-type: none;
+    text-align: center;
+    display: flex; /* Change display to flex */
+    flex-direction: column; /* Make list items stack vertically */
+    align-items: center; /* Center items within the list */
+  }
+  
+  .project-list li {
+    /* display: inline-block;  Display list items horizontally */
+    margin: 5px;
+    font-weight: bold;         /* Add spacing between items */
+  }
+  
+  .separator {
+    background: #19046e;
+    width: 150px;
+    height: 2px;
+    margin: 1rem auto;
+  } 
+
+  @media only screen and (max-width: 1149px) {
+    #projects .project {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+  
+  @media only screen and (max-width: 949px) {
+    #projects .project {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media only screen and (max-width: 649px) {
+    #projects {
+      background: #f0f0f0;
+    }
+    #projects .projects-container {
+      padding: 12rem 0 8rem;
+    }
+    #projects .project {
+      padding: 2rem 0;
+    }
+  }
+  
+  
+.group{
+  /* background-color: #19046e; */
+   list-style-type: none;
+    text-align: center;
+    display: flex; /* Change display to flex */
+    flex-direction: column; /* Make list items stack vertically */
+    align-items: center; /* Center */
+}
+  .projects-wrapper {
+    width: 100%; /* Adjust as needed */
+    
+  }
+  
+  .project-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    left: auto;
+    right: auto;
+  }
+  
+  /* Optional: Define project width */
+  .project {
+    /* width: 50%; */
+  }
+  .grp {
+    display: flex;      /* Make .grp a flex container */
+    flex-wrap: wrap;    /* Allow projects to wrap onto multiple rows */
+    justify-content: space-between; 
+    width: 500px;
+    /* background-color: #19046e; */
+  }
+  
+  .grp .project {
+    flex-basis: calc(50% - 20px); 
+    /* Set initial size for each project within .grp */
+  }
+  .proj {
+    flex: 1;
+    /* margin-right: 20px; Add margin to create a gap between projects */
+    
+  }
+  .assigner {
+    background: #fafafa url(https://cms-imgp.jw-cdn.org/img/p/502012477/univ/art/502012477_univ_lsr_lg.jpg) center / cover;
+    background-position: center;
+  }
+  .py{
+    background: #fafafa url(https://www.getfoundquick.com/wp-content/uploads/2015/08/shutterstock_451991974.jpg) center / cover;
+    background-position: center;
+  }
+  
+  figcaption{
+    /* color: #fafafa; */
+    font-size: 15px;
+    font-weight: bold;
+    color: adjust-color(var(--main-bg-color), $hue: -15deg);
+  }

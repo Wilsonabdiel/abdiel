@@ -1,0 +1,33 @@
+/* SocialLinks.css */
+
+.socialsdiv {
+    /* Your styles for the surrounding div*/   
+  }
+  
+  .socials {
+    display: flex;
+    justify-content: center; /* Center the social links horizontally */
+  }
+  
+  .socials ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .socials li {
+    margin-right: 10px;
+  }
+  
+  .socials a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  /* Add hover effect if desired */
+  .socials a:hover {
+    color: #00f;
+  }
+  

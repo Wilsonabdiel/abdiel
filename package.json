@@ -31,6 +31,10 @@
     },
     "scripts": {
         "start": "node scripts/start.js",
-        "build": "export NODE_ENV=production && rm -rf ./build && webpack --env.production --optimize-minimize"
-    }
+       
+        
+        "build": "set NODE_ENV=production && rmdir /s /q build && webpack --env.production --optimize-minimize"
+
+}
+    
 }
