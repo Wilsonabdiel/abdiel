@@ -1,25 +1,29 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
+use Illuminate\Support\Facades\Route;
 
+Route::get('/', [PostController::class, 'index'])->name('home');
 
-Route::get('/', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-Route::post('/posts/add', [PostController::class, 'add'])->name('posts.add');
-Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('posts.delete');
-Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
-Route::put('/posts/{id}', [PostController::class, 'update']);
+Route::get('posts/{post:slug}', [PostController::class, 'show']);
+Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('newsletter', NewsletterController::class);
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+
+Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
+Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
+
+Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
+
+// Admin Section
+Route::middleware('can:admin')->group(function () {
+    Route::resource('admin/posts', AdminPostController::class)->except('show');
 });
-
-require __DIR__.'/auth.php';
