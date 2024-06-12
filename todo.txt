@@ -1,0 +1,5 @@
+We're building a blog... yes... 
+
+So we'll need a way to display posts
+
+this would require a post model
