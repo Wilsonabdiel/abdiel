@@ -27,3 +27,9 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 Route::middleware('can:admin')->group(function () {
     Route::resource('admin/posts', AdminPostController::class)->except('show');
 });
+
+Route::get('/test', function() {
+    Cache::put('new-key', Str::random(16));
+
+    return "The new cached string is " . Cache::get('new-key');
+});
