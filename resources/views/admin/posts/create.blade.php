@@ -24,6 +24,17 @@
                 <x-form.error name="category"/>
             </x-form.field>
 
+            <x.form.input name="image[]" id="images" type="file" multiple></x.form.input>
+
+
+                <label for="images">Upload Images:</label>
+                <input
+                    class="border border-gray-200 h-20 p-2 w-full rounded"
+                    type="file" name="images[]" id="images" multiple
+
+                >
+
+
             <x-form.button>Publish</x-form.button>
         </form>
     </x-setting>

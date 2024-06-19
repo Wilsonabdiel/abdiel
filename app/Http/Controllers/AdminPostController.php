@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Image;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class AdminPostController extends Controller
@@ -19,14 +21,29 @@ class AdminPostController extends Controller
         return view('admin.posts.create');
     }
 
-    public function store()
+    public function store(Post $post)
     {
-        Post::create(array_merge($this->validatePost(), [
-            'user_id' => request()->user()->id,
-            'thumbnail' => request()->file('thumbnail')->store('thumbnails')
-        ]));
+        $validatedData = $this->validatePost(); // Validate the post data
 
-        return redirect('/');
+        $validatedData['user_id'] = request()->user()->id; // Assign the user ID
+        $validatedData['thumbnail'] = $validatedData['thumbnail']->store('thumbnails'); // Store the thumbnail
+
+        $newPost = Post::create($validatedData); // Create the post
+
+        // Handle multiple images
+        if (isset($validatedData['images']) && count($validatedData['images']) > 0) {
+            foreach ($validatedData['images'] as $image) {
+                $path = $image->store('images', 'public');
+
+                // Save image path in the database
+                Image::create([
+                    'post_id' => $newPost->id,
+                    'path' => $path,
+                ]);
+            }
+        }
+
+        return redirect('/')->with('success', 'Post created successfully.');
     }
 
     public function edit(Post $post)
@@ -34,37 +51,53 @@ class AdminPostController extends Controller
         return view('admin.posts.edit', ['post' => $post]);
     }
 
-    public function update(Post $post)
+    public function update(Request $request, Post $post)
     {
-        $attributes = $this->validatePost($post);
+        $validatedData = $this->validatePost($post); // Validate the updated post data
 
-        if ($attributes['thumbnail'] ?? false) {
-            $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+        // Update the thumbnail if provided
+        if ($request->hasFile('thumbnail')) {
+            $validatedData['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
         }
 
-        $post->update($attributes);
+        $post->update($validatedData); // Update the post
 
-        return back()->with('success', 'Post Updated!');
+        return back()->with('success', 'Post updated successfully.');
     }
 
     public function destroy(Post $post)
     {
-        $post->delete();
+        $post->delete(); // Delete the post
 
-        return back()->with('success', 'Post Deleted!');
+        return back()->with('success', 'Post deleted successfully.');
     }
 
     protected function validatePost(?Post $post = null): array
     {
         $post ??= new Post();
 
-        return request()->validate([
+        $validated = request()->validate([
             'title' => 'required',
             'thumbnail' => $post->exists ? ['image'] : ['required', 'image'],
             'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post)],
             'excerpt' => 'required',
             'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')]
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        // Process thumbnail
+        if (isset($validated['thumbnail'])) {
+            $validated['thumbnail'] = $validated['thumbnail']->store('thumbnails');
+        }
+
+        // Process images
+        if (isset($validated['images'])) {
+            foreach ($validated['images'] as $key => $image) {
+                $validated['images'][$key] = $image->store('images', 'public');
+            }
+        }
+
+        return $validated;
     }
 }

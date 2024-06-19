@@ -54,6 +54,13 @@
                             >
                                 New Post
                             </x-dropdown-item>
+
+                        <x-dropdown-item
+                            href="/admin/category/create"
+                            :active="request()->is('admin/category/create')"
+                        >
+                                Add Category
+                        </x-dropdown-item>
                         @endadmin
 
                         <x-dropdown-item

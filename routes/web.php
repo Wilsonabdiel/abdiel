@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
@@ -26,6 +27,7 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 // Admin Section
 Route::middleware('can:admin')->group(function () {
     Route::resource('admin/posts', AdminPostController::class)->except('show');
+    Route::resource('admin/category', CategoryController::class);
 });
 
 Route::get('/test', function() {

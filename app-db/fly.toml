@@ -1,0 +1,14 @@
+app = "my-app-db"
+
+[build]
+  image = "mysql:8.0"
+
+[mounts]
+  source = "mysql_data"
+  destination = "/var/lib/mysql"
+
+[env]
+  MYSQL_ROOT_PASSWORD = "password"
+  MYSQL_DATABASE = "abdielbytes"
+  MYSQL_USER = "abdiel"
+  MYSQL_PASSWORD = "password"
